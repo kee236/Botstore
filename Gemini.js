@@ -1,5 +1,7 @@
 var channelToken = ""; //Token Line
 var apiKey = ""; //Key Gemini
+var FacebookToken = "";key api Facebook 
+
 
 function replyMsg(replyToken, mess, channelToken) {
   var url = 'https://api.line.me/v2/bot/message/reply';
