@@ -1,6 +1,38 @@
-var channelToken = ""; //Token Line
-var apiKey = ""; //Key Gemini
-var FacebookToken = "";key api Facebook 
+var channelToken = ""; // Token Line
+var apiKey = ""; // Key Gemini
+var FacebookToken = ""; // Key API Facebook
+
+function replyMsg(replyToken, messages, platform) {
+  var url;
+  var headers;
+  switch (platform) {
+    case "Line":
+      url = 'https://api.line.me/v2/bot/message/reply';
+      headers = {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer ' + channelToken,
+      };
+      break;
+    case "Facebook":
+      url = 'https://developers.facebook.com/docs/messenger-platform/reference/send-api/'; // Facebook Graph API endpoint for sending messages (find the actual URL)
+      headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + FacebookToken,
+      };
+      break;
+  }
+  
+  var options = {
+    'method': 'post',
+    'payload': JSON.stringify({
+      'replyToken': replyToken,
+      'messages': messages
+    }),
+    'headers': headers
+  };
+  UrlFetchApp.fetch(url, options);
+}
+
 
 
 function replyMsg(replyToken, mess, channelToken) {
