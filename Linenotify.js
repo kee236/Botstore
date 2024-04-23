@@ -8,7 +8,11 @@ function dailyEventMessage() {
   //Logger.log(dailyEventList);
   
   var message = "";
-  
+var Order = "LIMGAR : "productName"\n"+ paymentType+":"+ProductPrice+"\n";
+
+  var customer = "cusName+ cusPhone+"\n"+cusAddress+
+
+
   for (var i = 0; i < dailyEventList.length; i++) {
   
     var eventTitle = "Title: " + "\n" + dailyEventList[i].getTitle();
