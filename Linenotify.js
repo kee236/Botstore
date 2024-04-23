@@ -7,12 +7,17 @@ function dailyEventMessage() {
   
   //Logger.log(dailyEventList);
   
-  var message = "";
-var Order = "LIMGAR : "productName"\n"+ paymentType+":"+ProductPrice+"\n";
+  
+var massageOrder " ";
+var Title = "***สรุปยอดสั่งซื้อ***";
 
-  var customer = "cusName+ cusPhone+"\n"+cusAddress+
+var Order = \n"order id :"+orderId+"\n"LIMGAR : "productName"\n"+ paymentType+":"+ProductPrice+"\n";
+
+  var customer = "cusName+"\n"+ cusPhone+"\n"+cusAddress ;
+ massageOrder+="\n"+Title+"\n"+Order+"\n"+customer ;
 
 
+var message = "";
   for (var i = 0; i < dailyEventList.length; i++) {
   
     var eventTitle = "Title: " + "\n" + dailyEventList[i].getTitle();
