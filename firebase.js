@@ -5,26 +5,14 @@
 var body = request.postData.contents;
 var data = JSON.parse(body);
 
+
 function getPrice(productName) {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
-  var sheet = ss.getSheetByName("Product"); // แก้ไขชื่อแผ่นข้อมูลตามที่คุณตั้งชื่อ
-  var values = sheet.getRange(2, 1, sheet.getLastRow(), 2).getValues(); // ค้นหาข้อมูลจากแถวที่ 2 เป็นต้นไป
-
-  for (var i = 0; i < values.length; i++) {
-    if (values[i][0] === productName) {
-      return values[i][1]; // คืนค่าราคาเมื่อพบชื่อสินค้าที่ตรงกัน
-    }
-  }
-
-  // ถ้าไม่พบชื่อสินค้าที่ตรงกัน
-  return "Product not found"; // คืนค่าข้อความแสดงว่าไม่พบสินค้า
-}
-
+  
 function intentPrice(agent) {
   var productName = data.queryResult.parameters.productName;
-  var price = getPrice(productName);
+  var productPrice  = getPrice(productName);
 
-  var responseMessage = " " + productName + " ราคา " + price + " บาท  (ส่งฟรี!!) ราคาเท่ากัน โอน/ปลายทาง ";
+  var responseMessage = " " + productName + " ราคา " + productPrice + " บาท  (ส่งฟรี!!) ราคาเท่ากัน โอน/ปลายทาง ";
 
   agent.add(responseMessage);
 
@@ -43,10 +31,11 @@ const productName = data.queryResult.context.get("intentPrice").parameters.produ
     const customerName = data.queryResult.parameters.customerName;
     const customerAddress = data.queryResult.parameters.customerAddress;
     const customerPhone = data.queryResult.parameters.customerPhone;
-    const price = getPrice(productName);
-const timestamp = new Date().toISOString();
+    const productPrice = getPrice(productName);
+const DateOrder = new Date().toISOString();
 
     const orderData = {
+      DateOrder : DateOrder
       customer: customerName,
       phone: customerPhone,
       address: customerAddress,
@@ -56,7 +45,7 @@ const timestamp = new Date().toISOString();
     };
 
   saveOrder(orderData);
-
+  sendLineNotify(orderData)
 
   var responseMessage =
     "สรุปยอดสั่งซื้อ\nสินค้า: " +
@@ -95,9 +84,6 @@ const spreadsheetId = 'YOUR_SPREADSHEET_ID'; // เปลี่ยนเป็�
   sheet.getRange(dataRange, 6).setValue(payment);
   sheet.getRange(dataRange, 7).setValue(product Price);
 
-  // Implement logic to save order data to a spreadsheet or database
-  // Replace this with your actual implementation
-  console.log("Saving order data:", orderData);
 }
 
 
@@ -107,6 +93,5 @@ const spreadsheetId = 'YOUR_SPREADSHEET_ID'; // เปลี่ยนเป็�
 "3ขวด","549"
 "6ขวด","990"
 "12ขวด","1690"
-
 
 }
