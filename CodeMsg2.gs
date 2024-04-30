@@ -1,26 +1,30 @@
 
-// 1. ฟังก์ชัน intentPrice
+// 1. ฟังก์ชันแสดง ราคา intentPrice
 function intentPrice(agent) {
   const productName = agent.parameters.productName;
-  const price = getPrice(productName); // ตัวอย่างการเรียกใช้ฟังก์ชันหาค่าราคาสินค้า
-  const msgPrice = {
+  const productPrice = getPrice(productName); // ตัวอย่างการเรียกใช้ฟังก์ชันหาค่าราคาสินค้า
+  const massangPrice = {
     text: {
       text: [
-        `**${productName} ราคา ${price} บาท\n🫴(ส่งฟรี!!) ทั้งโอนและปลายทาง✨`
+        `**${productName} ราคา ${productPrice} บาท\n🫴(ส่งฟรี!!) ทั้งโอนและปลายทาง✨`
       ]
     },
     platform: "FACEBOOK"
   };
-  agent.add(msgPrice);
+  agent.add(massangPrice);
 }
+
+
+
+
 
 // 2. ฟังก์ชัน intentConfirm
 function intentConfirm(agent) {
   const productName = agent.context.get('intentPrice').parameters.productName;
   const paymentType = agent.context.get('intentPayment').parameters.paymentType;
-  const customerName = agent.parameters.cusName;
-  const customerPhone = agent.parameters.cusPhone;
-  const customerAddress = agent.parameters.cusAddress;
+  const customerName = agent.parameters.customerName;
+  const customerPhone = agent.parameters.customerPhone;
+  const customerAddress = agent.parameters.customerAddress;
   const price = getPrice(productName); // ตัวอย่างการเรียกใช้ฟังก์ชันหาค่าราคาสินค้า
 
   // บันทึกข้อมูลลูกค้าลงใน Google Sheets
@@ -28,8 +32,8 @@ function intentConfirm(agent) {
   // บันทึกข้อมูลคำสั่งซื้อลงใน Google Sheets
   recordOrderData(productName, paymentType, price, customerName, customerPhone, customerAddress);
 
-  const msgOrder = `***สรุปยอดสั่งซื้อ***\nสินค้า: ${productName}\n${paymentType} : ${price}\n------\nชื่อลูกค้า: ${customerName}\nเบอร์โทร: ${customerPhone}\nที่อยู่: ${customerAddress}`;
-  agent.add(msgOrder);
+  const massangOrder = `***สรุปยอดสั่งซื้อ***\nสินค้า: ${productName}\n${paymentType} : ${productPrice}\n------\nชื่อลูกค้า: ${customerName}\nเบอร์โทร: ${customerPhone}\nที่อยู่: ${customerAddress}`;
+  agent.add(massangOrder);
 }
 
 function getPrice(productName) {
