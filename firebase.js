@@ -87,12 +87,12 @@ const spreadsheetId = 'YOUR_SPREADSHEET_ID'; // เปลี่ยนเป็�
   const sheet = SpreadsheetApp.openById(spreadsheetId).getSheetByName(sheetName);
 
   const dataRange = sheet.getLastRow() + 1;
-  sheet.getRange(dataRange, 1).setValue(facebookId);
-  sheet.getRange(dataRange, 2).setValue(timestamp);
-  sheet.getRange(dataRange, 3).setValue(productName);
-  sheet.getRange(dataRange, 4).setValue(productPrice);
-  sheet.getRange(dataRange, 5).setValue(productQuantity);
-  sheet.getRange(dataRange, 6).setValue(totalPrice);
+  sheet.getRange(dataRange, 1).setValue(date);
+  sheet.getRange(dataRange, 2).setValue(customerName);
+  sheet.getRange(dataRange, 3).setValue(customerPhone);
+  sheet.getRange(dataRange, 4).setValue(customerAddress);
+  sheet.getRange(dataRange, 5).setValue(productName);
+  sheet.getRange(dataRange, 6).setValue(payment);
 
   // Implement logic to save order data to a spreadsheet or database
   // Replace this with your actual implementation
