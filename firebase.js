@@ -84,7 +84,7 @@ const timestamp = new Date().toISOString();
 function saveOrder(orderData) {
 const spreadsheetId = 'YOUR_SPREADSHEET_ID'; // เปลี่ยนเป็น ID ของ Google Sheet ของคุณ
   const sheetName = 'Orders'; // เปลี่ยนเป็นชื่อ Sheet ของคุณ
-  const sheet = SpreadsheetApp.openById(spreadsheetId).getSheetByName(sheetName);
+  const sheet = SpreadsheetApp.openById(spreadsheetId).getSheetByName(Order);
 
   const dataRange = sheet.getLastRow() + 1;
   sheet.getRange(dataRange, 1).setValue(date);
@@ -93,6 +93,7 @@ const spreadsheetId = 'YOUR_SPREADSHEET_ID'; // เปลี่ยนเป็�
   sheet.getRange(dataRange, 4).setValue(customerAddress);
   sheet.getRange(dataRange, 5).setValue(productName);
   sheet.getRange(dataRange, 6).setValue(payment);
+  sheet.getRange(dataRange, 7).setValue(product Price);
 
   // Implement logic to save order data to a spreadsheet or database
   // Replace this with your actual implementation
