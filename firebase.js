@@ -36,23 +36,26 @@ function intentPrice(agent) {
 }
 
 function intentConfirm(agent) {
-  const productName = data.queryResult.context.get("intentPrice").parameters.productName;
-  const paymentType = data.queryResult.context.get("intentPayment").parameters.paymentType;
-  const cusName = data.queryResult.parameters.custName;
-  const cusAddress = data.queryResult.parameters.cusAddress;
-  const cusPhone = data.queryResult.parameters.cusPhone;
-  var price = getPrice(productName);
+  
 
-  var orderData = {
-    customer: cusName,
-    phone: cusPhone,
-    address: cusAddress,
-    product: productName,
-    payment: paymentType,
-    price: price,
-  };
+const productName = data.queryResult.context.get("intentPrice").parameters.productName;
+    const paymentType = data.queryResult.context.get("intentPayment").parameters.paymentType;
+    const customerName = data.queryResult.parameters.customerName;
+    const customerAddress = data.queryResult.parameters.customerAddress;
+    const customerPhone = data.queryResult.parameters.customerPhone;
+    const price = getPrice(productName);
+
+    const orderData = {
+      customer: customerName,
+      phone: customerPhone,
+      address: customerAddress,
+      product: productName,
+      payment: paymentType,
+      price: price,
+    };
 
   saveOrder(orderData);
+
 
   var responseMessage =
     "สรุปยอดสั่งซื้อ\nสินค้า: " +
@@ -86,46 +89,5 @@ function saveOrder(orderData) {
 
 
 
-function intentConfirm(agent) {
-    const productName = data.queryResult.context.get("intentPrice").parameters.productName;
-    const paymentType = data.queryResult.context.get("intentPayment").parameters.paymentType;
-    const customerName = data.queryResult.parameters.customerName;
-    const customerAddress = data.queryResult.parameters.customerAddress;
-    const customerPhone = data.queryResult.parameters.customerPhone;
-    const price = getPrice(productName);
 
-    const orderData = {
-      customer: customerName,
-      phone: customerPhone,
-      address: customerAddress,
-      product: productName,
-      payment: paymentType,
-      price: price,
-    };
-
-
-    console.log(`Order data: ${JSON.stringify(orderData)}`);
-
-    const responseMessage = `
-      **สรุปยอดสั่งซื้อ**
-     LIMGAR : ${productName}
-      ${payment}: ${price} บาท
-       ${customerName}
-      ${customerPhone}
-      ${customerAddress
-
-      **ขอบคุณสำหรับการสั่งซื้อ!**
-    `;
-
-    agent.add(responseMessage);
-
-    const responseJson = {
-      fulfillmentText: responseMessage,
-    };
-
-    res.json(responseJson);
-  }
-
-  // กำหนด routing สำหรับคำขอต่างๆ
-  app.post('/intent-price', intentPrice);
-  app.post('/intent-confirm', intentConfirm);
+    
