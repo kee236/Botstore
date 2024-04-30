@@ -47,3 +47,40 @@ exports.newRecord = functions
     });
   });
 
+// Ref. https://gist.github.com/CodingDoug/44ad12f4836e79ca9fa11ba5af6955f7
+
+function main() {
+  // Get speradsheet range and sheet name
+  const spreadSheetId = "Your Spread Sheet ID";
+  const sheetName = "Your Sheet Name";
+  const spreadSheet = SpreadsheetApp.openById(spreadSheetId);
+  const sheet = spreadSheet.getSheetByName(sheetName);
+  const range = sheet.getDataRange();
+  const allValues = range.getDisplayValues();
+
+  // Get column indexes from the names of the headers in the first row
+  const headers = {}
+  allValues[0].forEach(function(value, index) { 
+    headers[value] = index 
+  });
+  
+  // Collect all the data from the sheet into a object to send to the database
+  const dbData = {}
+  allValues.forEach(function(row, index) {
+      if (index === 0) { return }  // skip header row
+      dbData[row[headers.OrderNumber]] = {
+          key1: row[index1],
+          key2: row[index2],
+          key3: row[index3]
+      }
+  });
+  
+  const RTDB_URL = "Your RTDB Link";
+  const token = ScriptApp.getOAuthToken();
+  const url = RTDB_URL + "/" + sheetName + ".json?access_token=" + encodeURIComponent(token); //YourDataName.json
+  const response = UrlFetchApp.fetch(url, {
+      method: 'PUT',
+      payload: JSON.stringify(dbData)
+  })
+  Logger.log(response.getResponseCode());
+}
