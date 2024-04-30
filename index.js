@@ -5,14 +5,15 @@ const { sendLineNotify } = require('./LineNotify'); // ส่ง Line Notify
 const agent = new WebhookClient({ request, response });
 
 
-function intentPrice(agent) {
-  const productName = agent.parameters.productType;
+function massagePrice(agent) {
+  const productName = agent.parameters.productName;
+
   const price = ProductPrice('productName');
 
-const msgPrice = {
+const massangPrice = {
   text: {
     text: [
-      `**${productName} ราคา ${price} บาท\n🫴(ส่งฟรี!!) ทั้งโอนและปลายทาง✨`
+      `**${productName} ราคา ${productPrice} บาท\n🫴(ส่งฟรี!!) ทั้งโอนและปลายทาง✨`
     ] }, platform: "Facebook" };
 
 // ปุ่ม Quick Reply
@@ -37,22 +38,28 @@ const msgQuickReply = {
 function Payment(agent) {
   const paymentType = agent.parameters.paymentType;
 
-  const productName = agent.context.get('intentPrice').parameters.productType;
-  const price = ProductPrice('productName');
+  const productName = agent.context.get('massangPrice').parameters.productName;
+  const productPrice = productPrice('productName');
   
   
 
-  let msgCod = "แบบปลายทาง แจ้ง ชื่อ, ที่อยู่จัดส่ง, และเบอร์โทรศัพท์ เพื่อส่งมาได้เลยค่ะ 🧾";
-
-  let msgBanknumber = "ธนาคาร : กสิกรไทย\nชื่อบัญชี : อับดุลวอฮะ มะสง\nเลขบัญชี : 1048727642";
-
-  let msgBank = `🔹 ${product_name} แบบโอนยอดชำระ ${price} บาท ค่ะ💫\n🧾 โอนแล้ว แจ้งสลิป และ ชื่อ ที่อยู่ เบอร์โทร มาได้เลยนะค่ะ`;
-
+  
   if (payment_type === 'cod') {
+
+let massangPayment = "แบบปลายทาง แจ้ง ชื่อ, ที่อยู่จัดส่ง, และเบอร์โทรศัพท์ เพื่อส่งมาได้เลยค่ะ 🧾";
     agent.add(msgCod);
-  } else if (payment_type === 'bank') {
-    agent.add(msgBanknumber);
-    agent.add(msgBank);
+
+  } else if (payment_type === 'โอน') {
+
+
+
+  let Banknumber = "ธนาคาร : กสิกรไทย\nชื่อบัญชี : อับดุลวอฮะ มะสง\nเลขบัญชี : 1048727642";
+
+  let masangBank = `🔹 ${product_name} แบบโอนยอดชำระ ${productPrice} บาท ค่ะ💫\n🧾 โอนแล้ว แจ้งสลิป และ ชื่อ ที่อยู่ เบอร์โทร มาได้เลยนะค่ะ`;
+
+
+    agent.add(Banknumber,Bank);
+    
   }
 }
 
