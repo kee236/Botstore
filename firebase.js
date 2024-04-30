@@ -44,6 +44,7 @@ const productName = data.queryResult.context.get("intentPrice").parameters.produ
     const customerAddress = data.queryResult.parameters.customerAddress;
     const customerPhone = data.queryResult.parameters.customerPhone;
     const price = getPrice(productName);
+const timestamp = new Date().toISOString();
 
     const orderData = {
       customer: customerName,
@@ -81,6 +82,18 @@ const productName = data.queryResult.context.get("intentPrice").parameters.produ
 }
 
 function saveOrder(orderData) {
+const spreadsheetId = 'YOUR_SPREADSHEET_ID'; // เปลี่ยนเป็น ID ของ Google Sheet ของคุณ
+  const sheetName = 'Orders'; // เปลี่ยนเป็นชื่อ Sheet ของคุณ
+  const sheet = SpreadsheetApp.openById(spreadsheetId).getSheetByName(sheetName);
+
+  const dataRange = sheet.getLastRow() + 1;
+  sheet.getRange(dataRange, 1).setValue(facebookId);
+  sheet.getRange(dataRange, 2).setValue(timestamp);
+  sheet.getRange(dataRange, 3).setValue(productName);
+  sheet.getRange(dataRange, 4).setValue(productPrice);
+  sheet.getRange(dataRange, 5).setValue(productQuantity);
+  sheet.getRange(dataRange, 6).setValue(totalPrice);
+
   // Implement logic to save order data to a spreadsheet or database
   // Replace this with your actual implementation
   console.log("Saving order data:", orderData);
