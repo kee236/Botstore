@@ -87,7 +87,12 @@ function saveOrder(orderData) {
 }
 
 
+ function getPrice
+{
+ "2ขวด","368"
+"3ขวด","549"
+"6ขวด","990"
+"12ขวด","1690"
 
 
-
-    
+}
