@@ -81,3 +81,25 @@ function getUserProfiles(userId) {
   
   return [displayName, pictureUrl];
 }
+
+
+
+
+
+const app = dialogflow({
+  clientId: CLIENT_ID,
+})
+
+app.intent('Default Welcome Intent', conv => {
+  conv.ask(new SignIn('To get your account details'))
+})
+
+// Create a Dialogflow intent with the `actions_intent_SIGN_IN` event
+app.intent('Get Signin', (conv, params, signin) => {
+  if (signin.status === 'โอน') {
+    const payload = conv.user.profile.payload
+    conv.ask(`I got your account details. What do you want to do next?`)
+  } else {
+    conv.ask(`I won't be able to save your data, but what do you want to do next?`)
+  }
+})
