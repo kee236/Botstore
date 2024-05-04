@@ -22,6 +22,10 @@ const productPrices = {
 };
 
 
+function doPost(e) {
+   
+  var data = JSON.parse(e.postData.contents)
+  }
 function welcome(agent) {
   agent.add("ยินดีต้อนรับสู่ร้านค้าของเรา ");
   agent.add("ต้องการทราบข้อมูลสินค้าหรือสั่งซื้อสินค้าอะไร?");
@@ -93,70 +97,21 @@ const anws_thank = '✨อิงซาอัลลอฮ ✨ทานแล้�
 
 const anws_intentconfirm = `${anws_order}\n${anws_thank}`;
 
-
-
-  // แสดงผล
-  agent.add(
-    "***สรุปยอดสั่งซื้อ**\n" +
-      product.productName +
-      "\n" +paymentType+":"+
-      product.productPrice +
-      " บาท\n" +
-      "------\n" +
-      "ชื่อลูกค้า: " +
-      customerName +
-      "\n" +
-      "เบอร์โทร: " +
-      customerPhone +
-      "\n" +
-
-      "ที่อยู่: " +
-      customerAddress
-  );
-
-
-
-
-
+  agent.add(anws_intentconfirm) ;
 }
 
-var ss = SpreadsheetApp.openByUrl("YOUR_SPREADSHEET_URL");
-OrderData(customerName, customerPhone, customerAddress, productPrice) ;
-
-function saveOrder(orderData) {
-  
-  var ws = ss.getSheetByName("Order");
-  ws.appendRow([new Date(),orderData ]);
-}
-
-
-function saveCustomer(customerData) {  
-  var ws = ss.getSheetByName("Customer");
-  ws.appendRow([
-    new Date(),
-    customerData.name,
-    customerData.phone,
-    customerData.address
-  ]);
-}
-
-
-  ws.appendRow([
-    new Date(),
-    customerData.name,
-    customerData.phone,
-    customerData.address
-  ]);
-}
 
 
 
 
 var intentMap = new Map([
   ["Askprice", "intentPrice"],
-  ["ConfirmOrder", "ยืนยันสั่งซื้อ"],
-  ["Welcome", "ต้อนรับ"],
-  ["Payment", "ชำระเงิน"],
-  ["Thank", "ขอบคุณ"],
+  ["ConfirmOrder", "intentConfirm"],
+  ["Welcome", "welcome"],
+  ["Payment", "intentPayment"],
+  ["getAskGimini", "fallback"],
 ]);
 
+var replyJSON = ContentService.createTextOutput(JSON.stringify(result)).setMimeType(ContentService.MimeType.JSON);
+    return replyJSON;
+}
