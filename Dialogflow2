@@ -1,8 +1,15 @@
-
-
-
-
+var ss = SpreadsheetApp.openByUrl("URL Google Sheet");
+var sheet = ss.getSheetByName("ชื่อแผ่นงานsheet");
+function doPost(e) {
+   
+  var data = JSON.parse(e.postData.contents)
+  
+  
+    
 function handleOrder(agent) {
+
+var userMsg = data.originalDetectIntentRequest.payload.data.message.text;
+
   const customerName = agent.parameters['customerName'];
   const customerPhone = agent.parameters['customerPhone'];
   const customerAddress = agent.parameters['customerAddress'];
@@ -13,5 +20,28 @@ function handleOrder(agent) {
 
   saveOrderData(customerName, customerPhone, customerAddress, productName, paymentType, price);
   
-  const message = `***สรุปยอดสั่งซื้อ***\n LIMGAR: ${productName}\n ${paymentType} ${price}\n------\n ${customerName}\n${customerPhone}\n ${customerAdress}`;
+  const messageOeder = `***สรุปยอดสั่งซื้อ***\n LIMGAR: ${productName}\n ${paymentType} ${price}\n------\n ${customerName}\n${customerPhone}\n ${customerAdress}`;
   
+
+var result = {
+    "fulfillmentMessages": [
+  {
+    "platform": "line",
+    "type": 4,
+    "payload" : {
+    "line":  {
+  "type": "text",
+  "text": messageOeder
+    }
+        
+   }
+  }
+ ]
+}
+
+
+var replyJSON = ContentService.createTextOutput(JSON.stringify(result)).setMimeType(ContentService.MimeType.JSON);
+    return replyJSON;
+}
+  }
+}
