@@ -4,7 +4,7 @@ const {Card, Suggestion, Payload} = require('dialogflow-fulfillment');
 
 var admin = require("firebase-admin");
 
-var serviceAccount = require("path/to/serviceAccountKey.json");
+var serviceAccount = require("limgar-offical-burk-firebase-adminsdk-btuq9-a1e2adf659.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
