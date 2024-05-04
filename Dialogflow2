@@ -1,0 +1,17 @@
+
+
+
+
+function handleOrder(agent) {
+  const customerName = agent.parameters['customerName'];
+  const customerPhone = agent.parameters['customerPhone'];
+  const customerAddress = agent.parameters['customerAddress'];
+  const productName = agent.parameters['productName'];
+  const paymentType = agent.parameters['payment'];
+
+  const price = getPrice(productName);
+
+  saveOrderData(customerName, customerPhone, customerAddress, productName, paymentType, price);
+  
+  const message = `***สรุปยอดสั่งซื้อ***\n LIMGAR: ${productName}\n ${paymentType} ${price}\n------\n ${customerName}\n${customerPhone}\n ${customerAdress}`;
+  
