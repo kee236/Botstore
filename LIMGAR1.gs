@@ -1,3 +1,18 @@
+const functions = require('firebase-functions');
+const {WebhookClient} = require('dialogflow-fulfillment');
+const {Card, Suggestion, Payload} = require('dialogflow-fulfillment');
+
+var admin = require("firebase-admin");
+
+var serviceAccount = require("path/to/serviceAccountKey.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://limgar-offical-burk-default-rtdb.asia-southeast1.firebasedatabase.app"
+});
+
+
+
 const getprice = (productName) => {
         const mockPriceList = {
         '1ขวด': 199,
