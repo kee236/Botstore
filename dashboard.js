@@ -9,7 +9,7 @@ export default {
   components: {
     BCollapse,
     GlButton,
-  },
+  }, 
   directives: {
     GlCollapseToggle: GlCollapseToggleDirective,
   },
