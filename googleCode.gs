@@ -29,6 +29,44 @@ function massagePrice(agent) {
 }
 
 
+//////
+// Intent: AskPrice
+function AskPrice(agent) {
+  const productType = agent.parameters.product_type;
+  const price = getPrice(productType);
+
+  if (price !== "Price not found") {
+    agent.add(`The price of ${productType} is ${price} baht.`);
+  } else {
+    agent.add(`Sorry, the price of ${productType} is not available.`);
+  }
+}
+
+// Intent: GetAddress
+function GetAddress(agent) {
+  const productName = agent.parameters.product_type;
+  const customerName = agent.parameters.CustomerName;
+  const customerPhone = agent.parameters.CustomerPhone;
+  const customerAddress = agent.parameters.CustomerAddress;
+  
+  const price = getPrice(productName);
+
+  const orderData = {
+    productName: productName,
+    customerName: customerName,
+    customerPhone: customerPhone,
+    customerAddress: customerAddress,
+    price: price
+  };
+
+  saveOrder(orderData);
+  agent.add(`Thank you, ${customerName}. Your order has been placed successfully.`);
+}
+
+
+/////
+
+
 
 
 
